@@ -60,6 +60,7 @@ public class ParseYykLog {
         String yesterday = dayFormat.format(time);
         String fileName = yykPath + "access_" + yesterday + ".log";
 //        fileName = "D:\\Program Files\\eclipse\\workspace\\br-pro-sqlserver\\src\\main\\java\\access_20170608.log";
+        System.out.println(fileName);
         List<AccesslogSpread> yykList = new ArrayList<AccesslogSpread>();
         try {
             AccesslogSpread al = null;
@@ -105,6 +106,7 @@ public class ParseYykLog {
                 if (readLine.size() == 0)
                     break;
             }
+            System.out.println(yykList.size());
             extracted(yykList, yesterday);
         }
         catch (Exception e) {
@@ -183,6 +185,7 @@ public class ParseYykLog {
                 logList.add(accesslog);
             }
         }
+        System.out.println(logList.size());
         for (Accesslog accesslog1 : logList) {
             // 将数据插入到数据库
             accesslogMapper.insertSelective(accesslog1);

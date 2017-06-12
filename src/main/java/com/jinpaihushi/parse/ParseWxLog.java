@@ -63,6 +63,7 @@ public class ParseWxLog {
         //        D:/Program Files/eclipse/workspace/br-pro-sqlserver/src/main/java/access_20170604.log
         String fileName = wxPath + "access_" + yesterday + ".log";
 //        fileName = "D:\\Program Files\\eclipse\\workspace\\br-pro-sqlserver\\src\\main\\java\\access_20170608.log";
+        System.out.println(fileName);
         List<AccesslogSpread> wxList = new ArrayList<AccesslogSpread>();
         List<AccesslogSpread> wxNurse114List = new ArrayList<AccesslogSpread>();
         try {
@@ -117,7 +118,9 @@ public class ParseWxLog {
                 if (readLine.size() == 0)
                     break;
             }
+            System.out.println(wxList.size());
             extracted(wxList, yesterday);
+            System.out.println(wxNurse114List.size());
             extracted(wxNurse114List, yesterday);
         }
         catch (Exception e) {
@@ -196,6 +199,7 @@ public class ParseWxLog {
                 logList.add(accesslog);
             }
         }
+        System.out.println(logList.size());
         for (Accesslog accesslog1 : logList) {
             // 将数据插入到数据库
             accesslogMapper.insertSelective(accesslog1);

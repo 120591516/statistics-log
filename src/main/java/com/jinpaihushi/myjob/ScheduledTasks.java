@@ -30,8 +30,8 @@ public class ScheduledTasks{
 
     @Autowired
     private ParseYykLog parseYykLog;
-
-    @Scheduled(cron="*/1 * * * * ?")
+    
+    @Scheduled(cron="${cron}")
     public void reportCurrentTime(){
         System.out.println ("Scheduling Tasks Examples: The time is now " + dateFormat ().format (new Date ()));
         logger.info("开始解析微信公众号日志");
