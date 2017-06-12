@@ -31,7 +31,6 @@ public class MyBatisConfig implements TransactionManagementConfigurer{
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
         bean.setTypeAliasesPackage("cn.jinpaihushi.model");
-
         //添加XML目录
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         try {
