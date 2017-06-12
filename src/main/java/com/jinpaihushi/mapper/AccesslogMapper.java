@@ -1,13 +1,10 @@
 package com.jinpaihushi.mapper;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-
 import com.jinpaihushi.model.Accesslog;
 import com.jinpaihushi.model.AccesslogExample;
-@Mapper
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
+
 public interface AccesslogMapper {
     int countByExample(AccesslogExample example);
 

@@ -148,7 +148,7 @@ public class ParseYykLog {
                 for (AccesslogSpread accesslog3 : timeList) {
                     sourceTime = new Accesslog();
                     BeanUtils.copyProperties(sourceTime, accesslog3);
-                    sourceTime.setProductId(goods.get(0).getId());
+                    sourceTime.setGoodsId(goods.get(0).getId());
                     Predicate pvPredicate = new MyPredicate("starttime", accesslog3.getStarttime());
                     List<AccesslogSpread> pv = (List<AccesslogSpread>) CollectionUtils.select(select, pvPredicate);
                     sourceTime.setPv(pv.size());
@@ -168,7 +168,7 @@ public class ParseYykLog {
                 }
                 accesslog = new Accesslog();
                 BeanUtils.copyProperties(accesslog, accesslog2);
-                accesslog.setProductId(goods.get(0).getId());
+                accesslog.setGoodsId(goods.get(0).getId());
                 accesslog.setStarttime(timeFormat.parse("00:00:00"));
                 accesslog.setEndtime(timeFormat.parse("23:59:59"));
                 accesslog.setPv(select.size());

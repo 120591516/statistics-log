@@ -3,7 +3,7 @@
 <mapper namespace="com.jinpaihushi.mapper.AccesslogMapper" >
   <resultMap id="BaseResultMap" type="com.jinpaihushi.model.Accesslog" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
     <result column="uv" property="uv" jdbcType="INTEGER" />
     <result column="pv" property="pv" jdbcType="INTEGER" />
     <result column="accesstime" property="accesstime" jdbcType="DATE" />
@@ -70,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, product_id, uv, pv, accesstime, startTime, endTime, platform_id
+    id, goods_id, uv, pv, accesstime, startTime, endTime, platform_id
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.jinpaihushi.model.AccesslogExample" >
     select
@@ -103,10 +103,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.jinpaihushi.model.Accesslog" >
-    insert into accesslog (id, product_id, uv, 
+    insert into accesslog (id, goods_id, uv, 
       pv, accesstime, startTime, 
       endTime, platform_id)
-    values (#{id,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, #{uv,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{uv,jdbcType=INTEGER}, 
       #{pv,jdbcType=INTEGER}, #{accesstime,jdbcType=DATE}, #{starttime,jdbcType=TIME}, 
       #{endtime,jdbcType=TIME}, #{platformId,jdbcType=INTEGER})
   </insert>
@@ -116,8 +116,8 @@
       <if test="id != null" >
         id,
       </if>
-      <if test="productId != null" >
-        product_id,
+      <if test="goodsId != null" >
+        goods_id,
       </if>
       <if test="uv != null" >
         uv,
@@ -142,8 +142,8 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="productId != null" >
-        #{productId,jdbcType=INTEGER},
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
       </if>
       <if test="uv != null" >
         #{uv,jdbcType=INTEGER},
@@ -177,8 +177,8 @@
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.productId != null" >
-        product_id = #{record.productId,jdbcType=INTEGER},
+      <if test="record.goodsId != null" >
+        goods_id = #{record.goodsId,jdbcType=INTEGER},
       </if>
       <if test="record.uv != null" >
         uv = #{record.uv,jdbcType=INTEGER},
@@ -206,7 +206,7 @@
   <update id="updateByExample" parameterType="map" >
     update accesslog
     set id = #{record.id,jdbcType=INTEGER},
-      product_id = #{record.productId,jdbcType=INTEGER},
+      goods_id = #{record.goodsId,jdbcType=INTEGER},
       uv = #{record.uv,jdbcType=INTEGER},
       pv = #{record.pv,jdbcType=INTEGER},
       accesstime = #{record.accesstime,jdbcType=DATE},
@@ -220,8 +220,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.jinpaihushi.model.Accesslog" >
     update accesslog
     <set >
-      <if test="productId != null" >
-        product_id = #{productId,jdbcType=INTEGER},
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=INTEGER},
       </if>
       <if test="uv != null" >
         uv = #{uv,jdbcType=INTEGER},
@@ -246,7 +246,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.jinpaihushi.model.Accesslog" >
     update accesslog
-    set product_id = #{productId,jdbcType=INTEGER},
+    set goods_id = #{goodsId,jdbcType=INTEGER},
       uv = #{uv,jdbcType=INTEGER},
       pv = #{pv,jdbcType=INTEGER},
       accesstime = #{accesstime,jdbcType=DATE},

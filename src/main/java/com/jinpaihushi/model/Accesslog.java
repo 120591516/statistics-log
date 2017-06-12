@@ -6,7 +6,7 @@ import java.util.Date;
 public class Accesslog implements Serializable {
     private Integer id;
 
-    private Integer productId;
+    private Integer goodsId;
 
     private Integer uv;
 
@@ -28,12 +28,12 @@ public class Accesslog implements Serializable {
         this.id = id;
     }
 
-    public Integer getProductId() {
-        return productId;
+    public Integer getGoodsId() {
+        return goodsId;
     }
 
-    public void setProductId(Integer productId) {
-        this.productId = productId;
+    public void setGoodsId(Integer goodsId) {
+        this.goodsId = goodsId;
     }
 
     public Integer getUv() {
