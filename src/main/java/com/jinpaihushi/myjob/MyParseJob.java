@@ -11,9 +11,7 @@ import com.jinpaihushi.parse.Parse114Log;
 import com.jinpaihushi.parse.ParseWxLog;
 import com.jinpaihushi.parse.ParseYykLog;
 
-@Controller
-@RequestMapping("/myJob")
-public class MyParseJobController {
+public class MyParseJob {
     private Logger logger = Logger.getLogger(getClass());
 
     @Autowired
@@ -25,8 +23,6 @@ public class MyParseJobController {
     @Autowired
     private ParseYykLog parseYykLog;
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    @ResponseBody
     public String parseLogJob() {
         logger.info("开始解析微信公众号日志");
         parseWxLog.readFileByLines();
