@@ -1,19 +1,16 @@
 package com.jinpaihushi.mapper;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-
 import com.jinpaihushi.model.Product;
 import com.jinpaihushi.model.ProductExample;
-@Mapper
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
+
 public interface ProductMapper {
     int countByExample(ProductExample example);
 
     int deleteByExample(ProductExample example);
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(String id);
 
     int insert(Product record);
 
@@ -21,7 +18,7 @@ public interface ProductMapper {
 
     List<Product> selectByExample(ProductExample example);
 
-    Product selectByPrimaryKey(Integer id);
+    Product selectByPrimaryKey(String id);
 
     int updateByExampleSelective(@Param("record") Product record, @Param("example") ProductExample example);
 

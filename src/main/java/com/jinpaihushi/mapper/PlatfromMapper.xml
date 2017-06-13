@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.jinpaihushi.mapper.ProductMapper" >
-  <resultMap id="BaseResultMap" type="com.jinpaihushi.model.Product" >
+<mapper namespace="com.jinpaihushi.mapper.PlatfromMapper" >
+  <resultMap id="BaseResultMap" type="com.jinpaihushi.model.Platfrom" >
     <id column="id" property="id" jdbcType="VARCHAR" />
-    <result column="title" property="title" jdbcType="VARCHAR" />
-    <result column="sort" property="sort" jdbcType="INTEGER" />
-    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
+    <result column="channel" property="channel" jdbcType="VARCHAR" />
+    <result column="contacts_name" property="contactsName" jdbcType="VARCHAR" />
+    <result column="contacts_phone" property="contactsPhone" jdbcType="VARCHAR" />
+    <result column="company_address" property="companyAddress" jdbcType="VARCHAR" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="creator_id" property="creatorId" jdbcType="VARCHAR" />
     <result column="creator_name" property="creatorName" jdbcType="VARCHAR" />
@@ -70,15 +74,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, title, sort, status, remark, create_time, creator_id, creator_name
+    id, name, company, channel, contacts_name, contacts_phone, company_address, remark, 
+    status, create_time, creator_id, creator_name
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.jinpaihushi.model.ProductExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.jinpaihushi.model.PlatfromExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from product
+    from platfrom
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -89,44 +94,60 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    from product
+    from platfrom
     where id = #{id,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from product
+    delete from platfrom
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.jinpaihushi.model.ProductExample" >
-    delete from product
+  <delete id="deleteByExample" parameterType="com.jinpaihushi.model.PlatfromExample" >
+    delete from platfrom
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.jinpaihushi.model.Product" >
-    insert into product (id, title, sort, 
-      status, remark, create_time, 
-      creator_id, creator_name)
-    values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, 
-      #{status,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{creatorId,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.jinpaihushi.model.Platfrom" >
+    insert into platfrom (id, name, company, 
+      channel, contacts_name, contacts_phone, 
+      company_address, remark, status, 
+      create_time, creator_id, creator_name
+      )
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, 
+      #{channel,jdbcType=VARCHAR}, #{contactsName,jdbcType=VARCHAR}, #{contactsPhone,jdbcType=VARCHAR}, 
+      #{companyAddress,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{creatorId,jdbcType=VARCHAR}, #{creatorName,jdbcType=VARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.jinpaihushi.model.Product" >
-    insert into product
+  <insert id="insertSelective" parameterType="com.jinpaihushi.model.Platfrom" >
+    insert into platfrom
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
-      <if test="title != null" >
-        title,
+      <if test="name != null" >
+        name,
       </if>
-      <if test="sort != null" >
-        sort,
+      <if test="company != null" >
+        company,
       </if>
-      <if test="status != null" >
-        status,
+      <if test="channel != null" >
+        channel,
+      </if>
+      <if test="contactsName != null" >
+        contacts_name,
+      </if>
+      <if test="contactsPhone != null" >
+        contacts_phone,
+      </if>
+      <if test="companyAddress != null" >
+        company_address,
       </if>
       <if test="remark != null" >
         remark,
+      </if>
+      <if test="status != null" >
+        status,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -142,17 +163,29 @@
       <if test="id != null" >
         #{id,jdbcType=VARCHAR},
       </if>
-      <if test="title != null" >
-        #{title,jdbcType=VARCHAR},
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
       </if>
-      <if test="sort != null" >
-        #{sort,jdbcType=INTEGER},
+      <if test="company != null" >
+        #{company,jdbcType=VARCHAR},
       </if>
-      <if test="status != null" >
-        #{status,jdbcType=INTEGER},
+      <if test="channel != null" >
+        #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="contactsName != null" >
+        #{contactsName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactsPhone != null" >
+        #{contactsPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="companyAddress != null" >
+        #{companyAddress,jdbcType=VARCHAR},
       </if>
       <if test="remark != null" >
         #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -165,29 +198,41 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.jinpaihushi.model.ProductExample" resultType="java.lang.Integer" >
-    select count(*) from product
+  <select id="countByExample" parameterType="com.jinpaihushi.model.PlatfromExample" resultType="java.lang.Integer" >
+    select count(*) from platfrom
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update product
+    update platfrom
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=VARCHAR},
       </if>
-      <if test="record.title != null" >
-        title = #{record.title,jdbcType=VARCHAR},
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.sort != null" >
-        sort = #{record.sort,jdbcType=INTEGER},
+      <if test="record.company != null" >
+        company = #{record.company,jdbcType=VARCHAR},
       </if>
-      <if test="record.status != null" >
-        status = #{record.status,jdbcType=INTEGER},
+      <if test="record.channel != null" >
+        channel = #{record.channel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contactsName != null" >
+        contacts_name = #{record.contactsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contactsPhone != null" >
+        contacts_phone = #{record.contactsPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyAddress != null" >
+        company_address = #{record.companyAddress,jdbcType=VARCHAR},
       </if>
       <if test="record.remark != null" >
         remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
       </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -204,12 +249,16 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update product
+    update platfrom
     set id = #{record.id,jdbcType=VARCHAR},
-      title = #{record.title,jdbcType=VARCHAR},
-      sort = #{record.sort,jdbcType=INTEGER},
-      status = #{record.status,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      company = #{record.company,jdbcType=VARCHAR},
+      channel = #{record.channel,jdbcType=VARCHAR},
+      contacts_name = #{record.contactsName,jdbcType=VARCHAR},
+      contacts_phone = #{record.contactsPhone,jdbcType=VARCHAR},
+      company_address = #{record.companyAddress,jdbcType=VARCHAR},
       remark = #{record.remark,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       creator_id = #{record.creatorId,jdbcType=VARCHAR},
       creator_name = #{record.creatorName,jdbcType=VARCHAR}
@@ -217,20 +266,32 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.jinpaihushi.model.Product" >
-    update product
+  <update id="updateByPrimaryKeySelective" parameterType="com.jinpaihushi.model.Platfrom" >
+    update platfrom
     <set >
-      <if test="title != null" >
-        title = #{title,jdbcType=VARCHAR},
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="sort != null" >
-        sort = #{sort,jdbcType=INTEGER},
+      <if test="company != null" >
+        company = #{company,jdbcType=VARCHAR},
       </if>
-      <if test="status != null" >
-        status = #{status,jdbcType=INTEGER},
+      <if test="channel != null" >
+        channel = #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="contactsName != null" >
+        contacts_name = #{contactsName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactsPhone != null" >
+        contacts_phone = #{contactsPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="companyAddress != null" >
+        company_address = #{companyAddress,jdbcType=VARCHAR},
       </if>
       <if test="remark != null" >
         remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -244,12 +305,16 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.jinpaihushi.model.Product" >
-    update product
-    set title = #{title,jdbcType=VARCHAR},
-      sort = #{sort,jdbcType=INTEGER},
-      status = #{status,jdbcType=INTEGER},
+  <update id="updateByPrimaryKey" parameterType="com.jinpaihushi.model.Platfrom" >
+    update platfrom
+    set name = #{name,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      channel = #{channel,jdbcType=VARCHAR},
+      contacts_name = #{contactsName,jdbcType=VARCHAR},
+      contacts_phone = #{contactsPhone,jdbcType=VARCHAR},
+      company_address = #{companyAddress,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       creator_id = #{creatorId,jdbcType=VARCHAR},
       creator_name = #{creatorName,jdbcType=VARCHAR}

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.jinpaihushi.mapper.AccesslogMapper" >
-  <resultMap id="BaseResultMap" type="com.jinpaihushi.model.Accesslog" >
+<mapper namespace="com.jinpaihushi.mapper.AccessLogMapper" >
+  <resultMap id="BaseResultMap" type="com.jinpaihushi.model.AccessLog" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="goods_url_id" property="goodsUrlId" jdbcType="INTEGER" />
     <result column="uv" property="uv" jdbcType="INTEGER" />
     <result column="pv" property="pv" jdbcType="INTEGER" />
     <result column="accesstime" property="accesstime" jdbcType="DATE" />
@@ -70,15 +70,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, goods_id, uv, pv, accesstime, startTime, endTime, platform_id
+    id, goods_url_id, uv, pv, accesstime, startTime, endTime, platform_id
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.jinpaihushi.model.AccesslogExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.jinpaihushi.model.AccessLogExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from accesslog
+    from access_log
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -89,35 +89,35 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from accesslog
+    from access_log
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from accesslog
+    delete from access_log
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.jinpaihushi.model.AccesslogExample" >
-    delete from accesslog
+  <delete id="deleteByExample" parameterType="com.jinpaihushi.model.AccessLogExample" >
+    delete from access_log
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.jinpaihushi.model.Accesslog" >
-    insert into accesslog (id, goods_id, uv, 
+  <insert id="insert" parameterType="com.jinpaihushi.model.AccessLog" >
+    insert into access_log (id, goods_url_id, uv, 
       pv, accesstime, startTime, 
       endTime, platform_id)
-    values (#{id,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{uv,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{goodsUrlId,jdbcType=INTEGER}, #{uv,jdbcType=INTEGER}, 
       #{pv,jdbcType=INTEGER}, #{accesstime,jdbcType=DATE}, #{starttime,jdbcType=TIME}, 
       #{endtime,jdbcType=TIME}, #{platformId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.jinpaihushi.model.Accesslog" >
-    insert into accesslog
+  <insert id="insertSelective" parameterType="com.jinpaihushi.model.AccessLog" >
+    insert into access_log
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
-      <if test="goodsId != null" >
-        goods_id,
+      <if test="goodsUrlId != null" >
+        goods_url_id,
       </if>
       <if test="uv != null" >
         uv,
@@ -142,8 +142,8 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="goodsId != null" >
-        #{goodsId,jdbcType=INTEGER},
+      <if test="goodsUrlId != null" >
+        #{goodsUrlId,jdbcType=INTEGER},
       </if>
       <if test="uv != null" >
         #{uv,jdbcType=INTEGER},
@@ -165,20 +165,20 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.jinpaihushi.model.AccesslogExample" resultType="java.lang.Integer" >
-    select count(*) from accesslog
+  <select id="countByExample" parameterType="com.jinpaihushi.model.AccessLogExample" resultType="java.lang.Integer" >
+    select count(*) from access_log
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update accesslog
+    update access_log
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.goodsId != null" >
-        goods_id = #{record.goodsId,jdbcType=INTEGER},
+      <if test="record.goodsUrlId != null" >
+        goods_url_id = #{record.goodsUrlId,jdbcType=INTEGER},
       </if>
       <if test="record.uv != null" >
         uv = #{record.uv,jdbcType=INTEGER},
@@ -204,9 +204,9 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update accesslog
+    update access_log
     set id = #{record.id,jdbcType=INTEGER},
-      goods_id = #{record.goodsId,jdbcType=INTEGER},
+      goods_url_id = #{record.goodsUrlId,jdbcType=INTEGER},
       uv = #{record.uv,jdbcType=INTEGER},
       pv = #{record.pv,jdbcType=INTEGER},
       accesstime = #{record.accesstime,jdbcType=DATE},
@@ -217,11 +217,11 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.jinpaihushi.model.Accesslog" >
-    update accesslog
+  <update id="updateByPrimaryKeySelective" parameterType="com.jinpaihushi.model.AccessLog" >
+    update access_log
     <set >
-      <if test="goodsId != null" >
-        goods_id = #{goodsId,jdbcType=INTEGER},
+      <if test="goodsUrlId != null" >
+        goods_url_id = #{goodsUrlId,jdbcType=INTEGER},
       </if>
       <if test="uv != null" >
         uv = #{uv,jdbcType=INTEGER},
@@ -244,9 +244,9 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.jinpaihushi.model.Accesslog" >
-    update accesslog
-    set goods_id = #{goodsId,jdbcType=INTEGER},
+  <update id="updateByPrimaryKey" parameterType="com.jinpaihushi.model.AccessLog" >
+    update access_log
+    set goods_url_id = #{goodsUrlId,jdbcType=INTEGER},
       uv = #{uv,jdbcType=INTEGER},
       pv = #{pv,jdbcType=INTEGER},
       accesstime = #{accesstime,jdbcType=DATE},

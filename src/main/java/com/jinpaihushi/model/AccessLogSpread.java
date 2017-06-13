@@ -2,7 +2,7 @@ package com.jinpaihushi.model;
 
 import java.text.SimpleDateFormat;
 
-public class AccesslogSpread extends Accesslog {
+public class AccessLogSpread extends AccessLog {
 	private static SimpleDateFormat dayFormat = new SimpleDateFormat("yyyy-MM-dd");
 	private static SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
 	private String productPath;

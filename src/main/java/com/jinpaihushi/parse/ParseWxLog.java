@@ -18,23 +18,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.jinpaihushi.mapper.AccesslogMapper;
-import com.jinpaihushi.mapper.GoodsMapper;
-import com.jinpaihushi.model.Accesslog;
-import com.jinpaihushi.model.AccesslogSpread;
-import com.jinpaihushi.model.Goods;
-import com.jinpaihushi.model.GoodsExample;
-import com.jinpaihushi.model.GoodsExample.Criteria;
+import com.jinpaihushi.mapper.AccessLogMapper;
+import com.jinpaihushi.mapper.GoodsUrlMapper;
+import com.jinpaihushi.model.AccessLog;
+import com.jinpaihushi.model.AccessLogSpread;
+import com.jinpaihushi.model.GoodsUrl;
+import com.jinpaihushi.model.GoodsUrlExample;
+import com.jinpaihushi.model.GoodsUrlExample.Criteria;
 import com.jinpaihushi.util.MyPredicate;
 
 @Service(value = "parseWxLog")
 public class ParseWxLog {
+	@Autowired
+	private GoodsUrlMapper goodsUrlMapper;
 
 	@Autowired
-	private GoodsMapper goodsMapper;
-
-	@Autowired
-	private AccesslogMapper accesslogMapper;
+	private AccessLogMapper accesslogMapper;
 
 	@Value("${wxPath}")
 	private String wxPath;
@@ -66,10 +65,10 @@ public class ParseWxLog {
 		// fileName = "D:\\Program
 		// Files\\eclipse\\workspace\\br-pro-sqlserver\\src\\main\\java\\access_20170608.log";
 		System.out.println(fileName);
-		List<AccesslogSpread> wxList = new ArrayList<AccesslogSpread>();
-		List<AccesslogSpread> wxNurse114List = new ArrayList<AccesslogSpread>();
+		List<AccessLogSpread> wxList = new ArrayList<AccessLogSpread>();
+		List<AccessLogSpread> wxNurse114List = new ArrayList<AccessLogSpread>();
 		try {
-			AccesslogSpread al = null;
+			AccessLogSpread al = null;
 			long count = 0;
 			int num = 300;
 			while (true) {
@@ -85,7 +84,7 @@ public class ParseWxLog {
 						int urlEnd = readLine.get(i).indexOf("HTTP");
 						String urladdress = readLine.get(i).substring(urlStart + 6, urlEnd);
 						if (urladdress.contains(baseUrlPrefix)) {
-							al = new AccesslogSpread();
+							al = new AccessLogSpread();
 							int timeIndex = readLine.get(i).indexOf(":");
 							String hourse = readLine.get(i).substring(timeIndex + 1, timeIndex + 3);
 							String startTime = hourse + ":00:00";
@@ -129,10 +128,10 @@ public class ParseWxLog {
 
 	}
 
-	private void extracted(List<AccesslogSpread> list, String dayTime)
+	private void extracted(List<AccessLogSpread> list, String dayTime)
 			throws ParseException, IllegalAccessException, InvocationTargetException {
-		List<Accesslog> logList = new ArrayList<>();
-		List<AccesslogSpread> allProduct = new ArrayList<>(list);
+		List<AccessLog> logList = new ArrayList<>();
+		List<AccessLogSpread> allProduct = new ArrayList<>(list);
 		// 获取所有访问商品列表
 		for (int i = 0; i < allProduct.size(); i++) {
 			for (int j = allProduct.size() - 1; j > i; j--) {
@@ -141,19 +140,19 @@ public class ParseWxLog {
 				}
 			}
 		}
-		Accesslog accesslog = null;
-		Accesslog sourceTime = null;
-		for (AccesslogSpread accesslog2 : allProduct) {
+		AccessLog accesslog = null;
+		AccessLog sourceTime = null;
+		for (AccessLogSpread accesslog2 : allProduct) {
 			// 根据商品的地址获取商品一天内的访问次数
 			Predicate predicate = new MyPredicate("productPath", accesslog2.getProductPath());
-			List<AccesslogSpread> select = (List<AccesslogSpread>) CollectionUtils.select(list, predicate);
-			GoodsExample goodsExample = new GoodsExample();
+			List<AccessLogSpread> select = (List<AccessLogSpread>) CollectionUtils.select(list, predicate);
+			GoodsUrlExample goodsExample = new GoodsUrlExample();
 			Criteria goodsCriteria = goodsExample.createCriteria();
 			goodsCriteria.andPathEqualTo(accesslog2.getProductPath());
-			List<Goods> goods = goodsMapper.selectByExample(goodsExample);
+			List<GoodsUrl> goods = goodsUrlMapper.selectByExample(goodsExample);
 			if (goods.size() > 0) {
 				// 获取某一商品的各个时间段
-				List<AccesslogSpread> timeList = new ArrayList<>(select);
+				List<AccessLogSpread> timeList = new ArrayList<>(select);
 				for (int i = 0; i < timeList.size(); i++) {
 					for (int j = timeList.size() - 1; j > i; j--) {
 						if (timeList.get(i).getStarttime().equals(timeList.get(j).getStarttime())) {
@@ -161,12 +160,12 @@ public class ParseWxLog {
 						}
 					}
 				}
-				for (AccesslogSpread accesslog3 : timeList) {
-					sourceTime = new Accesslog();
+				for (AccessLogSpread accesslog3 : timeList) {
+					sourceTime = new AccessLog();
 					BeanUtils.copyProperties(sourceTime, accesslog3);
-					sourceTime.setGoodsId(goods.get(0).getId());
+					sourceTime.setGoodsUrlId(goods.get(0).getId());
 					Predicate pvPredicate = new MyPredicate("starttime", accesslog3.getStarttime());
-					List<AccesslogSpread> pv = (List<AccesslogSpread>) CollectionUtils.select(select, pvPredicate);
+					List<AccessLogSpread> pv = (List<AccessLogSpread>) CollectionUtils.select(select, pvPredicate);
 					sourceTime.setPv(pv.size());
 					// 如果时间段的日志数==1说明该时间段有且只有一个ip访问pv、uv值相等
 					// 反之就进行判断
@@ -182,9 +181,9 @@ public class ParseWxLog {
 					sourceTime.setUv(pv.size());
 					logList.add(sourceTime);
 				}
-				accesslog = new Accesslog();
+				accesslog = new AccessLog();
 				BeanUtils.copyProperties(accesslog, accesslog2);
-				accesslog.setGoodsId(goods.get(0).getId());
+				accesslog.setGoodsUrlId(goods.get(0).getId());
 				accesslog.setStarttime(timeFormat.parse("00:00:00"));
 				accesslog.setEndtime(timeFormat.parse("23:59:59"));
 				accesslog.setPv(select.size());
@@ -200,7 +199,7 @@ public class ParseWxLog {
 			}
 		}
 		System.out.println(logList.size());
-		for (Accesslog accesslog1 : logList) {
+		for (AccessLog accesslog1 : logList) {
 			// 将数据插入到数据库
 			accesslogMapper.insertSelective(accesslog1);
 		}

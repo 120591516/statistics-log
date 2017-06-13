@@ -1,25 +1,86 @@
 package com.jinpaihushi.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Product implements Serializable {
-    private Integer id;
+	private String id;
 
-    private String name;
+	private String title;
 
-    public Integer getId() {
-        return id;
-    }
+	private Integer sort;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	private Integer status;
 
-    public String getName() {
-        return name;
-    }
+	private String remark;
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
+	private Date createTime;
+
+	private String creatorId;
+
+	private String creatorName;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id == null ? null : id.trim();
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title == null ? null : title.trim();
+	}
+
+	public Integer getSort() {
+		return sort;
+	}
+
+	public void setSort(Integer sort) {
+		this.sort = sort;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark == null ? null : remark.trim();
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public String getCreatorId() {
+		return creatorId;
+	}
+
+	public void setCreatorId(String creatorId) {
+		this.creatorId = creatorId == null ? null : creatorId.trim();
+	}
+
+	public String getCreatorName() {
+		return creatorName;
+	}
+
+	public void setCreatorName(String creatorName) {
+		this.creatorName = creatorName == null ? null : creatorName.trim();
+	}
 }
