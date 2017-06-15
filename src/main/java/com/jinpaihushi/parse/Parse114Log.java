@@ -14,6 +14,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,7 @@ import com.jinpaihushi.util.MyPredicate;
 
 @Service(value = "parse114Log")
 public class Parse114Log {
-
+	private Logger logger = Logger.getLogger(getClass());
 	@Autowired
 	private GoodsUrlMapper goodsUrlMapper;
 
@@ -135,6 +136,9 @@ public class Parse114Log {
 			Criteria goodsCriteria = goodsExample.createCriteria();
 			goodsCriteria.andPathEqualTo(accesslog2.getProductPath());
 			List<GoodsUrl> goods = goodsUrlMapper.selectByExample(goodsExample);
+			if (goods.size() == 0) {
+				logger.info("未找到名称的产品地址" + accesslog2.getProductPath());
+			}
 			if (goods.size() > 0) {
 				// 获取某一商品的各个时间段
 				List<AccessLogSpread> timeList = new ArrayList<>(select);
