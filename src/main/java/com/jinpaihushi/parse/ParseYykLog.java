@@ -102,10 +102,8 @@ public class ParseYykLog {
 							al.setProductPath(urladdress);
 							al.setPlatformId("3");
 							yykList.add(al);
-
 						}
 					}
-
 					if (readLine.size() < num)
 						break;
 				}
