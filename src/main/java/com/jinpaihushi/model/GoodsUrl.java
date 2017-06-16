@@ -3,22 +3,22 @@ package com.jinpaihushi.model;
 import java.io.Serializable;
 
 public class GoodsUrl implements Serializable {
-	private Integer id;
+	private String id;
 
 	private String path;
 
 	private String name;
 
-	private Integer productId;
+	private String productId;
 
 	private Integer type;
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setId(String id) {
+		this.id = id == null ? null : id.trim();
 	}
 
 	public String getPath() {
@@ -37,12 +37,12 @@ public class GoodsUrl implements Serializable {
 		this.name = name == null ? null : name.trim();
 	}
 
-	public Integer getProductId() {
+	public String getProductId() {
 		return productId;
 	}
 
-	public void setProductId(Integer productId) {
-		this.productId = productId;
+	public void setProductId(String productId) {
+		this.productId = productId == null ? null : productId.trim();
 	}
 
 	public Integer getType() {

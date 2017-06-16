@@ -2,14 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.jinpaihushi.mapper.AccessLogMapper" >
   <resultMap id="BaseResultMap" type="com.jinpaihushi.model.AccessLog" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="goods_url_id" property="goodsUrlId" jdbcType="INTEGER" />
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="goods_url_id" property="goodsUrlId" jdbcType="VARCHAR" />
     <result column="uv" property="uv" jdbcType="INTEGER" />
     <result column="pv" property="pv" jdbcType="INTEGER" />
     <result column="accesstime" property="accesstime" jdbcType="DATE" />
     <result column="startTime" property="starttime" jdbcType="TIME" />
     <result column="endTime" property="endtime" jdbcType="TIME" />
-    <result column="platform_id" property="platformId" jdbcType="INTEGER" />
+    <result column="platform_id" property="platformId" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -86,15 +86,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from access_log
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from access_log
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.jinpaihushi.model.AccessLogExample" >
     delete from access_log
@@ -106,9 +106,9 @@
     insert into access_log (id, goods_url_id, uv, 
       pv, accesstime, startTime, 
       endTime, platform_id)
-    values (#{id,jdbcType=INTEGER}, #{goodsUrlId,jdbcType=INTEGER}, #{uv,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=VARCHAR}, #{goodsUrlId,jdbcType=VARCHAR}, #{uv,jdbcType=INTEGER}, 
       #{pv,jdbcType=INTEGER}, #{accesstime,jdbcType=DATE}, #{starttime,jdbcType=TIME}, 
-      #{endtime,jdbcType=TIME}, #{platformId,jdbcType=INTEGER})
+      #{endtime,jdbcType=TIME}, #{platformId,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.jinpaihushi.model.AccessLog" >
     insert into access_log
@@ -140,10 +140,10 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
-        #{id,jdbcType=INTEGER},
+        #{id,jdbcType=VARCHAR},
       </if>
       <if test="goodsUrlId != null" >
-        #{goodsUrlId,jdbcType=INTEGER},
+        #{goodsUrlId,jdbcType=VARCHAR},
       </if>
       <if test="uv != null" >
         #{uv,jdbcType=INTEGER},
@@ -161,7 +161,7 @@
         #{endtime,jdbcType=TIME},
       </if>
       <if test="platformId != null" >
-        #{platformId,jdbcType=INTEGER},
+        #{platformId,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -175,10 +175,10 @@
     update access_log
     <set >
       <if test="record.id != null" >
-        id = #{record.id,jdbcType=INTEGER},
+        id = #{record.id,jdbcType=VARCHAR},
       </if>
       <if test="record.goodsUrlId != null" >
-        goods_url_id = #{record.goodsUrlId,jdbcType=INTEGER},
+        goods_url_id = #{record.goodsUrlId,jdbcType=VARCHAR},
       </if>
       <if test="record.uv != null" >
         uv = #{record.uv,jdbcType=INTEGER},
@@ -196,7 +196,7 @@
         endTime = #{record.endtime,jdbcType=TIME},
       </if>
       <if test="record.platformId != null" >
-        platform_id = #{record.platformId,jdbcType=INTEGER},
+        platform_id = #{record.platformId,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -205,14 +205,14 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update access_log
-    set id = #{record.id,jdbcType=INTEGER},
-      goods_url_id = #{record.goodsUrlId,jdbcType=INTEGER},
+    set id = #{record.id,jdbcType=VARCHAR},
+      goods_url_id = #{record.goodsUrlId,jdbcType=VARCHAR},
       uv = #{record.uv,jdbcType=INTEGER},
       pv = #{record.pv,jdbcType=INTEGER},
       accesstime = #{record.accesstime,jdbcType=DATE},
       startTime = #{record.starttime,jdbcType=TIME},
       endTime = #{record.endtime,jdbcType=TIME},
-      platform_id = #{record.platformId,jdbcType=INTEGER}
+      platform_id = #{record.platformId,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -221,7 +221,7 @@
     update access_log
     <set >
       <if test="goodsUrlId != null" >
-        goods_url_id = #{goodsUrlId,jdbcType=INTEGER},
+        goods_url_id = #{goodsUrlId,jdbcType=VARCHAR},
       </if>
       <if test="uv != null" >
         uv = #{uv,jdbcType=INTEGER},
@@ -239,20 +239,20 @@
         endTime = #{endtime,jdbcType=TIME},
       </if>
       <if test="platformId != null" >
-        platform_id = #{platformId,jdbcType=INTEGER},
+        platform_id = #{platformId,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.jinpaihushi.model.AccessLog" >
     update access_log
-    set goods_url_id = #{goodsUrlId,jdbcType=INTEGER},
+    set goods_url_id = #{goodsUrlId,jdbcType=VARCHAR},
       uv = #{uv,jdbcType=INTEGER},
       pv = #{pv,jdbcType=INTEGER},
       accesstime = #{accesstime,jdbcType=DATE},
       startTime = #{starttime,jdbcType=TIME},
       endTime = #{endtime,jdbcType=TIME},
-      platform_id = #{platformId,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
+      platform_id = #{platformId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

@@ -10,7 +10,7 @@ public interface GoodsUrlMapper {
 
     int deleteByExample(GoodsUrlExample example);
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(String id);
 
     int insert(GoodsUrl record);
 
@@ -18,7 +18,7 @@ public interface GoodsUrlMapper {
 
     List<GoodsUrl> selectByExample(GoodsUrlExample example);
 
-    GoodsUrl selectByPrimaryKey(Integer id);
+    GoodsUrl selectByPrimaryKey(String id);
 
     int updateByExampleSelective(@Param("record") GoodsUrl record, @Param("example") GoodsUrlExample example);
 

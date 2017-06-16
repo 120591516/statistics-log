@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class AccessLog implements Serializable {
-	private Integer id;
+	private String id;
 
-	private Integer goodsUrlId;
+	private String goodsUrlId;
 
 	private Integer uv;
 
@@ -18,22 +18,22 @@ public class AccessLog implements Serializable {
 
 	private Date endtime;
 
-	private Integer platformId;
+	private String platformId;
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setId(String id) {
+		this.id = id == null ? null : id.trim();
 	}
 
-	public Integer getGoodsUrlId() {
+	public String getGoodsUrlId() {
 		return goodsUrlId;
 	}
 
-	public void setGoodsUrlId(Integer goodsUrlId) {
-		this.goodsUrlId = goodsUrlId;
+	public void setGoodsUrlId(String goodsUrlId) {
+		this.goodsUrlId = goodsUrlId == null ? null : goodsUrlId.trim();
 	}
 
 	public Integer getUv() {
@@ -76,11 +76,11 @@ public class AccessLog implements Serializable {
 		this.endtime = endtime;
 	}
 
-	public Integer getPlatformId() {
+	public String getPlatformId() {
 		return platformId;
 	}
 
-	public void setPlatformId(Integer platformId) {
-		this.platformId = platformId;
+	public void setPlatformId(String platformId) {
+		this.platformId = platformId == null ? null : platformId.trim();
 	}
 }

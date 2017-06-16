@@ -3,7 +3,7 @@ package com.jinpaihushi.model;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Platfrom implements Serializable {
+public class Platform implements Serializable {
 	private String id;
 
 	private String name;

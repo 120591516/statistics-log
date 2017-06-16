@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class PlatfromExample implements Serializable {
+public class PlatformExample implements Serializable {
 	protected String orderByClause;
 
 	protected boolean distinct;
 
 	protected List<Criteria> oredCriteria;
 
-	public PlatfromExample() {
+	public PlatformExample() {
 		oredCriteria = new ArrayList<Criteria>();
 	}
 
