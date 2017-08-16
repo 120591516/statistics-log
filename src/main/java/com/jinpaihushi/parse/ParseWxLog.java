@@ -69,6 +69,7 @@ public class ParseWxLog {
         cal.add(Calendar.DATE, -1);
         Date time = cal.getTime();
         String yesterday = dayFormat.format(time);
+        wxPath = "E:\\wx\\";
         String fileName = wxPath + "access_" + yesterday + ".log";
         System.out.println(fileName);
         List<AccessLogSpread> wxList = new ArrayList<AccessLogSpread>();
@@ -89,7 +90,6 @@ public class ParseWxLog {
                         int urlStart = readLine.get(i).indexOf("]");
                         int urlEnd = readLine.get(i).indexOf("HTTP");
                         String urladdress = readLine.get(i).substring(urlStart + 6, urlEnd);
-                        System.out.println(urladdress);
                         List<String> goodsUrl = goodsUrlService.getGoodsUrl();
                         if (CommonUtil.checkUrl(goodsUrl, urladdress.trim())) {
                             al = new AccessLogSpread();
