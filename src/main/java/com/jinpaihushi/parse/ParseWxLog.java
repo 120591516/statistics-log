@@ -69,7 +69,6 @@ public class ParseWxLog {
         cal.add(Calendar.DATE, -1);
         Date time = cal.getTime();
         String yesterday = dayFormat.format(time);
-        wxPath = "E:\\wx\\";
         String fileName = wxPath + "access_" + yesterday + ".log";
         System.out.println(fileName);
         List<AccessLogSpread> wxList = new ArrayList<AccessLogSpread>();
