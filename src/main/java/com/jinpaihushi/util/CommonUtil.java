@@ -11,4 +11,13 @@ public class CommonUtil {
         }
         return false;
     }
+
+    public static String baseUrl(List<String> goodsUrl, String urlAddress) {
+        for (String string : goodsUrl) {
+            if (urlAddress.contains(string)) {
+                return string;
+            }
+        }
+        return "";
+    }
 }

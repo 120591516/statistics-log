@@ -47,7 +47,7 @@ public class ParseWxLog {
     @Value("${wxPath}")
     private String wxPath;
 
-    private static String baseUrlPrefix = "/ComeIn?m=setOneProductNew&";// 微信服务号平台
+    private static String baseUrlPrefix = "/ComeIn?m=setOneProductNew&";
 
     private static String wxNurse114UrlPrefix = "/wxNurse114";// 微信114生活助手
 
@@ -65,10 +65,15 @@ public class ParseWxLog {
      */
     @Transactional
     public void readFileByLines() {
+        List<String> goodsUrl = goodsUrlService.getGoodsUrl();
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, -1);
         Date time = cal.getTime();
         String yesterday = dayFormat.format(time);
+        wxPath = "E:\\wx\\";
+        //        String[] a = { "20170817", "20170818", "20170819", "20170820", "20170821", "20170822", "20170823" };
+        //        for (int m = 0; m < a.length; m++) {
+        //            yesterday = a[m];
         String fileName = wxPath + "access_" + yesterday + ".log";
         System.out.println(fileName);
         List<AccessLogSpread> wxList = new ArrayList<AccessLogSpread>();
@@ -89,8 +94,14 @@ public class ParseWxLog {
                         int urlStart = readLine.get(i).indexOf("]");
                         int urlEnd = readLine.get(i).indexOf("HTTP");
                         String urladdress = readLine.get(i).substring(urlStart + 6, urlEnd);
-                        List<String> goodsUrl = goodsUrlService.getGoodsUrl();
+                        if (urladdress.contains("/jsp/H5/AzzOrderDetails.jsp?exex=") && urladdress.contains("&")) {
+                            urladdress = urladdress.substring(0, urladdress.indexOf("&"));
+                        }
                         if (CommonUtil.checkUrl(goodsUrl, urladdress.trim())) {
+                            urladdress = urladdress.trim();
+                            if (urladdress.contains("/activityCommon?m=oneServiceActivity")) {
+                                urladdress = CommonUtil.baseUrl(goodsUrl, urladdress.trim());
+                            }
                             al = new AccessLogSpread();
                             int timeIndex = readLine.get(i).indexOf(":");
                             String hourse = readLine.get(i).substring(timeIndex + 1, timeIndex + 3);
@@ -100,7 +111,6 @@ public class ParseWxLog {
                             int ipindex = readLine.get(i).indexOf("-");
                             String ipaddress = readLine.get(i).substring(0, ipindex - 1);
                             // 访问的商品的id有两位、三位，统一按三位截取，然后两位的去前后空格
-                            urladdress = urladdress.trim();
                             al.setAccesstime(dayFormat.parse(yesterday));
                             al.setIp(ipaddress);
                             al.setStarttime(timeFormat.parse(startTime));
@@ -134,6 +144,7 @@ public class ParseWxLog {
         catch (Exception e) {
             e.printStackTrace();
         }
+        //        }
 
     }
 

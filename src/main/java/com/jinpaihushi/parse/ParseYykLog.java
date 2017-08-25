@@ -63,6 +63,7 @@ public class ParseYykLog {
      */
     @Transactional
     public void readFileByLines() {
+        List<String> goodsUrl = goodsUrlService.getGoodsUrl();
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, -1);
         Date time = cal.getTime();
@@ -86,8 +87,14 @@ public class ParseYykLog {
                         int urlStart = readLine.get(i).indexOf("]");
                         int urlEnd = readLine.get(i).indexOf("HTTP");
                         String urladdress = readLine.get(i).substring(urlStart + 6, urlEnd);
-                        List<String> goodsUrl = goodsUrlService.getGoodsUrl();
+                        if (urladdress.contains("/jsp/H5/AzzOrderDetails.jsp?exex=") && urladdress.contains("&")) {
+                            urladdress = urladdress.substring(0, urladdress.indexOf("&"));
+                        }
                         if (CommonUtil.checkUrl(goodsUrl, urladdress.trim())) {
+                            urladdress = urladdress.trim();
+                            if (urladdress.contains("/activityCommon?m=oneServiceActivity")) {
+                                urladdress = CommonUtil.baseUrl(goodsUrl, urladdress.trim());
+                            }
                             al = new AccessLogSpread();
                             int timeIndex = readLine.get(i).indexOf(":");
                             String hourse = readLine.get(i).substring(timeIndex + 1, timeIndex + 3);
@@ -97,7 +104,6 @@ public class ParseYykLog {
                             int ipindex = readLine.get(i).indexOf("-");
                             String ipaddress = readLine.get(i).substring(0, ipindex - 1);
                             // 访问的商品的id有两位、三位，统一按三位截取，然后两位的去前后空格
-                            urladdress = urladdress.trim();
                             al.setAccesstime(dayFormat.parse(yesterday));
                             al.setIp(ipaddress);
                             al.setStarttime(timeFormat.parse(startTime));
