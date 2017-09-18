@@ -87,9 +87,6 @@ public class Parse114Log {
                         int urlStart = readLine.get(i).indexOf("]");
                         int urlEnd = readLine.get(i).indexOf("HTTP");
                         String urladdress = readLine.get(i).substring(urlStart + 6, urlEnd);
-                        if (urladdress.contains("/jsp/H5/AzzOrderDetails.jsp?exex=") && urladdress.contains("&")) {
-                            urladdress = urladdress.substring(0, urladdress.indexOf("&"));
-                        }
                         if (CommonUtil.checkUrl(goodsUrl, urladdress.trim())) {
                             urladdress = urladdress.trim();
                             if (urladdress.contains("/activityCommon?m=oneServiceActivity")) {

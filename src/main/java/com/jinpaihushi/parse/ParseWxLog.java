@@ -70,11 +70,12 @@ public class ParseWxLog {
         cal.add(Calendar.DATE, -1);
         Date time = cal.getTime();
         String yesterday = dayFormat.format(time);
-        wxPath = "E:\\wx\\";
+        //        wxPath = "E:\\wx\\";
         //        String[] a = { "20170817", "20170818", "20170819", "20170820", "20170821", "20170822", "20170823" };
         //        for (int m = 0; m < a.length; m++) {
         //            yesterday = a[m];
         String fileName = wxPath + "access_" + yesterday + ".log";
+        //        String fileName = wxPath + "access.log";
         System.out.println(fileName);
         List<AccessLogSpread> wxList = new ArrayList<AccessLogSpread>();
         List<AccessLogSpread> wxNurse114List = new ArrayList<AccessLogSpread>();
@@ -94,9 +95,6 @@ public class ParseWxLog {
                         int urlStart = readLine.get(i).indexOf("]");
                         int urlEnd = readLine.get(i).indexOf("HTTP");
                         String urladdress = readLine.get(i).substring(urlStart + 6, urlEnd);
-                        if (urladdress.contains("/jsp/H5/AzzOrderDetails.jsp?exex=") && urladdress.contains("&")) {
-                            urladdress = urladdress.substring(0, urladdress.indexOf("&"));
-                        }
                         if (CommonUtil.checkUrl(goodsUrl, urladdress.trim())) {
                             urladdress = urladdress.trim();
                             if (urladdress.contains("/activityCommon?m=oneServiceActivity")) {
