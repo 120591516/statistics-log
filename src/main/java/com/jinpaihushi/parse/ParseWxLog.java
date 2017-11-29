@@ -49,8 +49,6 @@ public class ParseWxLog {
 
     private static String baseUrlPrefix = "/ComeIn?m=setOneProductNew&";
 
-    private static String wxNurse114UrlPrefix = "/wxNurse114";// 微信114生活助手
-
     private static SimpleDateFormat dayFormat = new SimpleDateFormat("yyyyMMdd");
 
     private static SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
@@ -97,9 +95,6 @@ public class ParseWxLog {
                         String urladdress = readLine.get(i).substring(urlStart + 6, urlEnd);
                         if (CommonUtil.checkUrl(goodsUrl, urladdress.trim())) {
                             urladdress = urladdress.trim();
-                            if (urladdress.contains("/activityCommon?m=oneServiceActivity")) {
-                                urladdress = CommonUtil.baseUrl(goodsUrl, urladdress.trim());
-                            }
                             al = new AccessLogSpread();
                             int timeIndex = readLine.get(i).indexOf(":");
                             String hourse = readLine.get(i).substring(timeIndex + 1, timeIndex + 3);
@@ -114,17 +109,9 @@ public class ParseWxLog {
                             al.setStarttime(timeFormat.parse(startTime));
                             al.setEndtime(timeFormat.parse(endTime));
                             al.setProductPath(urladdress);
-                            if (urladdress.contains(wxNurse114UrlPrefix)) {
-                                urladdress = urladdress.substring(11);
-                                al.setProductPath(urladdress);
-                                al.setPlatformId("2");
-                                wxNurse114List.add(al);
-                            }
-                            else {
-                                al.setPlatformId("1");
-                                wxList.add(al);
+                            al.setPlatformId("1");
+                            wxList.add(al);
 
-                            }
                         }
                     }
 
