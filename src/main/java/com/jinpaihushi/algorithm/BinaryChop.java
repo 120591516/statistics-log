@@ -34,6 +34,8 @@ public class BinaryChop {
 
 			if (!list.contains(number)) {
 				list.add(number);
+			} else {
+				i--;
 			}
 		}
 
